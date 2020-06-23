@@ -112,7 +112,7 @@ trait Context
             return $this->value;
         }
         if (null === $this->parent) {
-            throw new ContextValueNotFoundException();
+            throw new ContextValueNotFoundException('HUH');
         }
 
         return $this->parent->get($key);
