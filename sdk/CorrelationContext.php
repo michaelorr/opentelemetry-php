@@ -65,8 +65,19 @@ class CorrelationContext
         $this->parent = $parent;
     }
 
+    /**
+     * When called on a CorrelationContext, this function will destroy all Correlation data
+     *
+     * @return null
+     */
     public function clearCorrelations()
     {
-        // TODO: Write me
+        $cur_node = $this;
+        do {
+            echo "looping" . PHP_EOL;
+            $cur_node->key = null;
+            $cur_node->value = null;
+            $cur_node = $cur_node->parent;
+        } while (null !== $cur_node->parent);
     }
 }

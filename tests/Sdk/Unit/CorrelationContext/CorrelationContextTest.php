@@ -76,4 +76,22 @@ class CorrelationContextTest extends TestCase
         $this->assertNotEquals('bar', $cctx->get($key1));
         $this->assertNotEquals('foo', $cctx->get($key2));
     }
+
+    /**
+     * @test
+     */
+    public function testClearCorrelations()
+    {
+        $key1 = new ContextKey();
+        $key2 = new ContextKey();
+
+        $cctx = (new CorrelationContext())->set($key1, 'foo')->set($key2, 'bar');
+
+        $this->assertEquals('foo', $cctx->get($key1));
+        $this->assertEquals('bar', $cctx->get($key2));
+
+        $cctx->clearCorrelations();
+        $this->expectException(ContextValueNotFoundException::class);
+        $cctx->get($key1);
+    }
 }
